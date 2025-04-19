@@ -1,8 +1,7 @@
-
-<H3>ENTER YOUR NAME</H3>
-<H3>ENTER YOUR REGISTER NO.</H3>
+<H3>ENTER YOUR NAME : Sree Hari K</H3>
+<H3>ENTER YOUR REGISTER NO. 212223230212</H3>
 <H3>EX. NO.4</H3>
-<H3>DATE:</H3>
+<H3>DATE: 19/04/2025</H3>
 <H1 ALIGN =CENTER>Implementation of MLP with Backpropagation for Multiclassification</H1>
 <H3>Aim:</H3>
 To implement a Multilayer Perceptron for Multi classification
@@ -116,11 +115,44 @@ Normalize our dataset.
 
 <H3>Program:</H3> 
 
-Insert your code here
+```
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.neural_network import MLPClassifier
+from sklearn.metrics import confusion_matrix, classification_report
+from sklearn.datasets import load_iris
+
+iris = load_iris()
+X = iris.data
+y = iris.target
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+mlp = MLPClassifier(hidden_layer_sizes=(10, 10), activation='relu', max_iter=1000, random_state=42)
+mlp.fit(X_train, y_train)
+
+y_pred = mlp.predict(X_test)
+
+cm = confusion_matrix(y_test, y_pred)
+cm_df = pd.DataFrame(cm, index=iris.target_names, columns=iris.target_names)
+print("\nConfusion Matrix:")
+print(cm_df)
+
+cr = classification_report(y_test, y_pred, target_names=iris.target_names, output_dict=True)
+cr_df = pd.DataFrame(cr).transpose()
+print("\nClassification Report:")
+print(cr_df)
+
+```
 
 <H3>Output:</H3>
 
-Show your results here
+![image](https://github.com/user-attachments/assets/ab0dc74a-cf25-44de-acce-43c70f91d55d)
 
 <H3>Result:</H3>
 Thus, MLP is implemented for multi-classification using python.
